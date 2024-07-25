@@ -105,4 +105,44 @@ def snake_move():
         x = snake.xcor()
         snake.setx(x + 20)
 
+# Binding your keyboard
+screen.listen()
+screen.onkeypress(snake_go_up, "Up" )
+screen.onkeypress(snake_go_up, "w" )
+screen.onkeypress(snake_go_down, "Down" )
+screen.onkeypress(snake_go_down, "s" )
+screen.onkeypress(snake_go_left, "Left" )
+screen.onkeypress(snake_go_left, "a" )
+screen.onkeypress(snake_go_right, "Right" )
+screen.onkeypress(snake_go_right, "d" )
+
+
+# Game over function
+def game_over():
+    time.sleep(1)
+    screen.clear()
+    screen.bgcolor("salmon")
+    scoring.goto(0, 0)
+    scoring.write("GAME OVER \n Your score is {}".format(score), align="center", font=("Courier", 30, "bold"))
+    screen.update()
+    time.sleep(3)
+    turtle.bye()
+
+
+# Main loop
+while True:
+    screen.update()
+
+    # Snake-fruit collision
+    if snake.distance(fruit) < 20:
+        x = random.randint(-290, 270)
+        y = random.randint(-240, 240)
+        fruit.goto(x, y)
+
+        # Increase score
+        score += 1
+        scoring.clear()
+        scoring.write("Your Score is: {}".format(score), align="center", font=("Courier", 24, "bold"))
+
+
 
