@@ -169,6 +169,22 @@ while True:
     # Set snake orientation
     set_snake_orientation()
 
+# Snake and border collision
+    if (
+        snake.xcor() > 280
+        or snake.xcor() < -300
+        or snake.ycor() > 240
+        or snake.ycor() < -240
+    ):
+        game_over()
+
+    # Snake self-collision
+    for segment in ancient_fruit:
+        if snake.distance(segment) < 20:
+            game_over()
+
+    time.sleep(delay)
+
 
 
 
