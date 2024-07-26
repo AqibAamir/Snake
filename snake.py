@@ -144,5 +144,46 @@ while True:
         scoring.clear()
         scoring.write("Your Score is: {}".format(score), align="center", font=("Courier", 24, "bold"))
 
+# Increase speed and create a new snake segment
+        delay -= 0.001
+        new_fruit = turtle.Turtle()
+        new_fruit.speed(0)
+        new_fruit.shape("circle")
+        new_fruit.color("brown")
+        new_fruit.penup()
+        ancient_fruit.append(new_fruit)
+
+    # Adding body
+    for index in range(len(ancient_fruit) - 1, 0, -1):
+        a = ancient_fruit[index - 1].xcor()
+        b = ancient_fruit[index - 1].ycor()
+        ancient_fruit[index].goto(a, b)
+
+    if len(ancient_fruit) > 0:
+        a = snake.xcor()
+        b = snake.ycor()
+        ancient_fruit[0].goto(a, b)
+
+    snake_move()
+
+    # Set snake orientation
+    set_snake_orientation()
+
+    # Snake and border collision
+    if (
+        snake.xcor() > 280
+        or snake.xcor() < -300
+        or snake.ycor() > 240
+        or snake.ycor() < -240
+    ):
+        game_over()
+
+    # Snake self-collision
+    for segment in ancient_fruit:
+        if snake.distance(segment) < 20:
+            game_over()
+
+    time.sleep(delay)
+
 
 
